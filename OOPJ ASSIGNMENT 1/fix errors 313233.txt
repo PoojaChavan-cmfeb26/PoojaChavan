@@ -1,0 +1,37 @@
+fix errors
+31
+int x;
+System.out.println(x);
+=> 
+int x = 0; // initialize before use
+System.out.println(x);
+
+32
+if(x = 10){
+    System.out.println("Hello");
+}
+=>
+if(x == 10){   // use == for comparison
+    System.out.println("Hello");
+}
+ 
+33
+Fix infinite loop: while(i < 10){ System.out.println(i); }
+That loop runs infinitely because the value of i never changes, so the condition i < 10 is always true.
+
+=>
+
+
+public class FixInfiniteLoop {
+    public static void main(String[] args) {
+        int i = 0; // initialize i
+
+        while (i < 10) {
+            System.out.println(i);
+            i++; // increment i to avoid infinite loop
+        }
+    }
+}
+
+
+
