@@ -1,0 +1,25 @@
+ASSIGNMENT NO 3
+
+--------------------------------------------------------------------------
+
+1) Does ANSI recognize the data type DATE?
+
+Yes — the ANSI SQL standard does recognize DATE as a valid data type.
+
+It stores calendar dates (year, month, day).
+
+Some systems also extend it with TIME and TIMESTAMP for more precision.
+
+2) Which subdivision of SQL is used to insert values in tables?
+
+SQL is divided into different parts:
+
+- DDL (Data Definition Language) → for creating tables, altering structures.
+
+- DML (Data Manipulation Language) → for inserting, updating, deleting, and retrieving data.
+
+- DCL (Data Control Language) → for permissions.
+
+- TCL (Transaction Control Language) → for commits, rollbacks.
+
+The subdivision used to insert values into tables is DML. Specifically, the INSERT INTO statement belongs to DML.

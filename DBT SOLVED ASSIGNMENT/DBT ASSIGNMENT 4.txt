@@ -1,0 +1,39 @@
+
+ASSIGNMENT NO 4
+
+
+1)Write a select command that produces the order number, amount, and date for all
+
+rows in the Orders table.-We only need three columns: Onum, Amt, and Odate.
+
+SELECT Onum, Amt, Odate FROM Orders;
+
+2)Write a query that produces all .
+
+SELECT * FROM Customers WHERE Snum = 1001;
+
+3) Display Salespeople table with columns in order: , snum,city, sname comm
+
+SELECT City, Sname, Snum, Comm FROM Salespeople;
+
+4) Rating followed by name of each customer in San Jose
+
+Here we filter by city and select only the two columns.
+
+SELECT Rating, Cname FROM CustomerS WHERE City = 'San Jose';
+
+5) Produce the Snum values of all salespeople with orders (suppress duplicates)
+This is where DISTINCT comes in handy. 
+SELECT DISTINCT Snum FROM Orders;
+
+- SELECT → choose columns FROM → choose table
+  WHERE → filter rows
+
+DISTINCT → remove duplicates
+
+SELECT * FROM Salespeople ORDER BY CITY DESC;
+
+SELECT * FROM Part ORDER BY CITY ASC, PartName ASC;
+
+
+-----------------------------------------------------------------------------------------------------------------------

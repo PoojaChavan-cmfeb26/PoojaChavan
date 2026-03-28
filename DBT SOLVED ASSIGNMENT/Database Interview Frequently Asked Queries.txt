@@ -1,0 +1,53 @@
+1)  Create Emp table containing a Sal column with the following sample data:-  
+    -> ;
++-------+----------+--------+
+| EMPID | NAME     | SALARY |
++-------+----------+--------+
+|     1 | AMRUTA   |   8000 |
+|     2 | SNEHA    |   7000 |
+|     3 | PRANAV   |   5000 |
+|     4 | ROHIT    |   5000 |
+|     5 | SWATI    |  10000 |
+|     6 | VAISHALI |   9000 |
+|     7 | DADA     |   4000 |
+|     8 | SAUMYA   |   8000 |
+|     9 | OVII     |   7000 |
++-------+----------+--------+
+9 rows in set (0.03 sec)
+
+
+
+Q) Write a SELECT statement to display the Overall 5th largest Sal.   
+Assuming the above data, the Overall 5th largest Sal would be 6000. Do not make use 
+of Rownum.  
+
+mysql> select DISTINCT SALARY from employee
+    -> order by SALARY DESC
+    -> LIMIT 1 OFFSET 4;
++--------+
+| SALARY |
++--------+
+|   5000 |
++--------+
+
+
+2)For the above table, write a SELECT statement to display the Largest and Second 
+largest Sals (next to each other).  Your output should be as below:-   
+   
+  FIRST    SECOND   
+  --------    ------------   
+  10000    9000
+
+select MAX(SALARY) AS FIRST,
+(select MAX(SALARY) from employee
+where SALARY (select MAX(SAL) from employee))
+AS SECOND from employee;
+
+3)Write a DELETE statement to delete the duplicate rows.  After running your Delete 
+statement, one occurrence of each value of Empno should remain in the table.  
+
+delete e1
+ from employee e1
+ JOIN employee e2
+ ON e1.rowid = e2.rowid
+AND e1.rowid > e2.rowid;

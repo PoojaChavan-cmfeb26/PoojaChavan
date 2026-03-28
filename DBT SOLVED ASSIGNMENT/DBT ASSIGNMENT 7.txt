@@ -1,0 +1,28 @@
+ASSIGNMENT 7
+
+
+1) Commission per order (12%)
+SELECT order_number,
+       salesperson_id,
+       order_amount * 0.12 AS commission
+FROM Orders;
+
+
+- Multiplies each order’s amount by 12% to calculate commission.
+
+2) Highest rating in each city with formatted output
+SELECT 'For the city ' || city || 
+       ', the highest rating is : ' || MAX(rating) AS result
+FROM Customers
+GROUP BY city;
+
+
+ -Uses string concatenation (||) to format the output into a sentence.
+
+3) Customers in descending order of rating
+SELECT rating,
+       customer_name,
+       customer_id
+FROM Customers
+ORDER BY rating DESC;
+

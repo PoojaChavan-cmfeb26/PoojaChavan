@@ -1,0 +1,14 @@
+create table emp
+(
+empno int auto_increment primary key,
+ename varchar(25) check(ename = upper(ename)),
+sal float default 7000
+check(sal between 5001 and 29999),
+deptno int,
+status char(1) default 'T'
+check(status in('T','P','R')),
+comm float not null,
+mob_no char(15) unique,
+constraint fk_emp_deptno foreign key(deptno) references dept(deptno),
+check (sal+comm < 50000)
+);

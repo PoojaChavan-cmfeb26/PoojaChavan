@@ -1,0 +1,181 @@
+-- Employees table
+CREATE TABLE emps (
+    empno INT PRIMARY KEY,
+    ename VARCHAR(50),
+    deptno INT,
+    address VARCHAR(100)
+);
+
+-- Departments table
+CREATE TABLE depts (
+    deptno INT PRIMARY KEY,
+    dname VARCHAR(50)
+);
+
+-- Meetings table
+CREATE TABLE meetings (
+    meeting_id INT PRIMARY KEY,
+    empno INT,
+    FOREIGN KEY (empno) REFERENCES emps(empno)
+);
+
+-- Addresses table
+CREATE TABLE addresses (
+    address_id INT PRIMARY KEY,
+    district VARCHAR(50),
+    city VARCHAR(50)
+);
+
+
+INSERT INTO depts (deptno, dname) VALUES (10, 'HR');
+INSERT INTO depts (deptno, dname) VALUES (20, 'Dev');
+INSERT INTO depts (deptno, dname) VALUES (30, 'Sales');
+
+
+INSERT INTO emps (empno, ename, deptno, address) VALUES (1, 'Amit', 10, 'Pune');
+INSERT INTO emps (empno, ename, deptno, address) VALUES (2, 'Ravi', 20, 'Mumbai');
+INSERT INTO emps (empno, ename, deptno, address) VALUES (3, 'Neha', 10, 'Nashik');
+INSERT INTO emps (empno, ename, deptno, address) VALUES (4, 'Sita', 30, 'Nagpur');
+INSERT INTO emps (empno, ename, deptno, address) VALUES (5, 'Arav', 20, 'Thane');
+
+
+INSERT INTO meetings (meeting_id, empno) VALUES (101, 1);
+INSERT INTO meetings (meeting_id, empno) VALUES (102, 1);
+INSERT INTO meetings (meeting_id, empno) VALUES (103, 1);
+INSERT INTO meetings (meeting_id, empno) VALUES (104, 2);
+INSERT INTO meetings (meeting_id, empno) VALUES (105, 2);
+INSERT INTO meetings (meeting_id, empno) VALUES (106, 3);
+
+INSERT INTO addresses (address_id, district, city) VALUES (1, 'Thane', 'Mumbai');
+INSERT INTO addresses (address_id, district, city) VALUES (2, 'Baramati', 'Pune');
+INSERT INTO addresses (address_id, district, city) VALUES (3, 'Satara', 'Kolhapur');
+---------------------------------------------------------------------------------------------
+1. Retrieve all employees with their corresponding department names
+SELECT e.empno, e.ename, d.dname
+FROM emps e
+JOIN depts d ON e.deptno = d.deptno;
+
+2. Retrieve department name(s) with more than 1 employee
+
+SELECT d.dname, COUNT(e.empno) AS emp_count
+FROM emps e
+JOIN depts d ON e.deptno = d.deptno
+GROUP BY d.dname
+HAVING COUNT(e.empno) > 1;
+
+ 3. Find employees who have attended ≥ 3 meetings
+
+SELECT e.empno, e.ename, COUNT(m.meeting_id) AS meetings_attended
+FROM emps e
+JOIN meetings m ON e.empno = m.empno
+GROUP BY e.empno, e.ename
+HAVING COUNT(m.meeting_id) >= 3;
+
+ 4. Find the second highest department number in `depts`
+
+SELECT MAX(deptno) AS second_highest_deptno
+FROM depts
+WHERE deptno < (SELECT MAX(deptno) FROM depts);
+
+
+5. Find employees whose `empno` is even and belong to the 'dev' department
+
+SELECT e.empno, e.ename
+FROM emps e
+JOIN depts d ON e.deptno = d.deptno
+WHERE e.empno % 2 = 0
+ AND d.dname = 'dev';
+
+
+6. Generate usernames (first 3 letters of name + deptno)
+SELECT CONCAT(LEFT(e.ename, 3), e.deptno) AS username
+FROM emps e;
+
+
+7. Find addresses where district name contains 'ara'
+
+SELECT address_id, district, city
+FROM addresses
+WHERE district LIKE '%ara%';
+
+
+8. Retrieve last two characters of each employee’s name
+
+SELECT RIGHT(ename, 2) AS last_two_chars
+FROM emps;
+
+---
+
+9. Modify `emps` table  
+I) Add column `password`**
+
+ALTER TABLE emps ADD COLUMN password VARCHAR(500);
+
+II) Insert new employee with encrypted password (using MySQL `AES_ENCRYPT`)**
+
+INSERT INTO emps (empno, ename, deptno, address, password)
+VALUES (101, 'Ravi', 2, 'Mumbai', AES_ENCRYPT('mypassword', 'secretkey'));
+
+
+-----------------------------------------------------------------------------------
+
+DELIMITER $$
+
+CREATE PROCEDURE calc_age(IN dob DATE)
+BEGIN
+    DECLARE age INT;
+
+    -- Calculate age in years using TIMESTAMPDIFF
+    SET age = TIMESTAMPDIFF(YEAR, dob, CURDATE());
+
+    -- Create temp table if not exists
+    CREATE TEMPORARY TABLE IF NOT EXISTS temp_age (
+        dob DATE,
+        age INT
+    );
+
+    -- Insert values
+    INSERT INTO temp_age VALUES (dob, age);
+END $$
+
+DELIMITER ;
+
+CALL calc_age('1995-05-10');
+SELECT * FROM temp_age;
+
+
+------------------
+
+DELIMITER $$
+
+CREATE FUNCTION check_emps(deptno_input INT)
+RETURNS VARCHAR(50)
+DETERMINISTIC
+BEGIN
+    DECLARE emp_count INT;
+    DECLARE result VARCHAR(50);
+
+    -- Count employees in given department
+    SELECT COUNT(*) INTO emp_count
+    FROM emps
+    WHERE deptno = deptno_input;
+
+    -- Conditional logic
+    IF emp_count = 0 THEN
+        SET result = 'No Employee Present';
+    ELSEIF emp_count = 1 THEN
+        SET result = 'Only 1 Employee Present';
+    ELSE
+        SET result = CONCAT(emp_count, ' Employees Present');
+    END IF;
+
+    RETURN result;
+END $$
+
+DELIMITER ;
+
+SELECT check_emps(10);
+SELECT check_emps(20);
+SELECT check_emps(40);
+
+

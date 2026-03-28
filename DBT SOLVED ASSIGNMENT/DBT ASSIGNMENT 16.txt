@@ -1,0 +1,33 @@
+Creating Tables and Indexes.
+
+1) Write a command that will enable a user to pull orders grouped by date out of the Orders table quickly. 
+
+CREATE INDEX idx_orders_date
+ON Orders (odate);
+
+SELECT odate, COUNT(*)
+FROM Orders
+GROUP BY odate;
+
+
+
+2) If the Orders table has already been created, how can you force the onum field to be unique (assume all current values are unique)? 
+
+ALTER TABLE Orders
+ADD CONSTRAINT uq_onum UNIQUE (onum);
+
+3) Create an index that would permit each salesperson to retrieve his or her orders grouped by date quickly. 
+
+CREATE INDEX idx_orders_snum_date
+ON Orders (snum, odate);
+
+SELECT snum, odate, COUNT(*)
+FROM Orders
+GROUP BY snum, odate;
+
+
+
+4) Let us assume that each salesperson is to have only one customer of a given rating, and that this is currently the case. Enter a command that enforces it.
+
+ALTER TABLE Customers
+ADD CONSTRAINT uq_snum_rating UNIQUE (snum, rating);

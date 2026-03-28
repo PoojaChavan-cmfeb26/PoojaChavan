@@ -1,0 +1,48 @@
+
+EXERCISE 1
+
+
+CREATE TABLE SEMP (EMPNO CHAR(4) PRIMARY KEY, EMPNAME CHAR(20), BASIC FLOAT, DEPTNO CHAR(2), DEPTHEAD CHAR(4));
+INSERT INTO SEMP (EMPNO, EMPNAME, BASIC, DEPTNO)VALUES ('0001', 'SUNIL', 6000, '10');
+INSERT INTO SEMP (EMPNO, EMPNAME, BASIC, DEPTNO)VALUES ('0002', 'HIREN', 8000, '20');
+INSERT INTO SEMP (EMPNO, EMPNAME, BASIC, DEPTNO, DEPTHEAD)VALUES ('0003', 'ALI', 4000, '10', '0001');
+INSERT INTO SEMP (EMPNO, EMPNAME, BASIC, DEPTNO, DEPTHEAD)VALUES ('0004', 'GEORGE', 6000, '20', '0002');
+
+CREATE TABLE SDEPT (DEPTNO CHAR(2) PRIMARY KEY,DEPTNAME CHAR(15)); 
+INSERT INTO SDEPT (DEPTNO, DEPTNAME)VALUES ('10', 'Development');
+INSERT INTO SDEPT (DEPTNO, DEPTNAME)VALUES ('10', 'Development');
+INSERT INTO SDEPT (DEPTNO, DEPTNAME)VALUES ('20', 'Training');
+
+EXERCISE 2
+
+mysql> SELECT* FROM salespeople ORDER BY City DESC;
++------+---------+-----------+------+
+| snum | sname   | city      | comm |
++------+---------+-----------+------+
+| 1002 | SERRES  | SAN JOSE  | 0.13 |
+| 1004 | ACELROD | NEW YORK  | 0.10 |
+| 1001 | PEEL    | LONDON    | 0.12 |
+| 1003 | MOTIKA  | LONDON    | 0.11 |
+| 1007 | RIFKIN  | BARCELONA | 0.15 |
++------+---------+-----------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from sdept;
++--------+-------------+
+| DEPTNO | DEPTNAME    |
++--------+-------------+
+| 10     | Development |
+| 20     | Training    |
++--------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from semp;
++-------+---------+-------+--------+----------+
+| EMPNO | EMPNAME | BASIC | DEPTNO | DEPTHEAD |
++-------+---------+-------+--------+----------+
+| 0001  | SUNIL   |  6000 | 10     | NULL     |
+| 0002  | HIREN   |  8000 | 20     | NULL     |
+| 0003  | ALI     |  4000 | 10     | 0001     |
+| 0004  | GEORGE  |  6000 | 20     | 0002     |
++-------+---------+-------+--------+----------+
+4 rows in set (0.00 sec)

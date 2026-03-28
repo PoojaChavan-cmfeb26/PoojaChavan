@@ -1,0 +1,47 @@
+assignment no. 8
+
+1) List each order number with the customer’s name
+SELECT o.order_number,
+       c.customer_name
+FROM Orders o
+JOIN Customers c
+  ON o.customer_id = c.customer_id;
+
+
+
+2) Names of both salesperson and customer for each order
+SELECT o.order_number,
+       c.customer_name,
+       s.salesperson_name
+FROM Orders o
+JOIN Customers c
+  ON o.customer_id = c.customer_id
+JOIN Salespeople s
+  ON o.salesperson_id = s.salesperson_id;
+
+
+
+3) Customers serviced by salespeople with commission above 12%
+SELECT c.customer_name,
+       s.salesperson_name,
+       s.commission_rate
+FROM Customers c
+JOIN Orders o
+  ON c.customer_id = o.customer_id
+JOIN Salespeople s
+  ON o.salesperson_id = s.salesperson_id
+WHERE s.commission_rate > 0.12;
+
+
+
+4) Commission amount on each order by customers with rating above 100
+SELECT o.order_number,
+       c.customer_name,
+       s.salesperson_name,
+       o.order_amount * s.commission_rate AS commission_amount
+FROM Orders o
+JOIN Customers c
+  ON o.customer_id = c.customer_id
+JOIN Salespeople s
+  ON o.salesperson_id = s.salesperson_id
+WHERE c.rating > 10

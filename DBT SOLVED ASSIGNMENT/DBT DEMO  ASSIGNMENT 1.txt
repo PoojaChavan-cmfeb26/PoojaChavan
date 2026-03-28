@@ -1,0 +1,55 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| world              |
++--------------------+
+5 rows in set (0.203 sec)
+
+mysql> use mysql;
+Database changed
+mysql> create user pooja@'pooja';
+Query OK, 0 rows affected (2.316 sec)
+
+mysql> create user pooja1@'pooja' identified by 'pcdac';
+Query OK, 0 rows affected (0.341 sec)
+
+mysql> create database kharghar;
+Query OK, 1 row affected (0.137 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| kharghar           |
+| mysql              |
+| performance_schema |
+| sys                |
+| world              |
++--------------------+
+6 rows in set (0.016 sec)
+
+mysql> grant all privileges on khaghar.* to pooja1@pooja;
+Query OK, 0 rows affected (0.274 sec)
+
+mysql> flush privileges;
+Query OK, 0 rows affected, 1 warning (0.256 sec)
+
+mysql> use kharghar
+Database changed
+mysql>
+
+
+
+
+
+
+
+
+
+

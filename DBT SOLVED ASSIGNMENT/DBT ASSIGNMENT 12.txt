@@ -1,0 +1,80 @@
+1)Write a query that selects all customers whose ratings are equal to or greater than 
+ANY of Serres’.  
+
+SELECT employee_name, department
+FROM employees
+WHERE department IN ('HR', 'Finance', 'IT');
+
+
+2) Write a query using ANY or ALL that will find all salespeople who have no 
+customers located in their city.  
+
+USING  ALL
+SELECT s.sname, s.city
+FROM salespeople s
+WHERE s.city <> ALL (
+    SELECT c.city
+    FROM customers c
+    WHERE c.snum = s.snum
+);
+
+--USING not and ANY
+SELECT s.sname, s.city
+FROM salespeople s
+WHERE NOT s.city = ANY (
+    SELECT c.city
+    FROM customers c
+    WHERE c.snum = s.snum
+);
+
+
+
+3)Write a query that selects all orders for amounts greater than any for the 
+customers in London. 
+
+
+SELECT o.onum, o.amt, o.cnum
+FROM orders o
+WHERE o.amt > ANY (
+    SELECT o2.amt
+    FROM orders o2
+    JOIN customers c ON o2.cnum = c.cnum
+    WHERE c.city = 'London'
+);
+
+
+
+4)4) Write the above query using MIN or MAX.  
+
+
+
+SELECT o.onum, o.amt, o.cnum
+FROM orders o
+WHERE o.amt > ANY (
+    SELECT o2.amt
+    FROM orders o2
+    JOIN customers c ON o2.cnum = c.cnum
+    WHERE c.city = 'London'
+);
+
+SELECT o.onum, o.amt, o.cnum
+FROM orders o
+WHERE o.amt > (
+    SELECT MIN(o2.amt)
+    FROM orders o2
+    JOIN customers c ON o2.cnum = c.cnum
+    WHERE c.city = 'London'
+);
+
+
+
+SELECT o.onum, o.amt, o.cnum
+FROM orders o
+WHERE o.amt > (
+    SELECT MAX(o2.amt)
+    FROM orders o2
+    JOIN customers c ON o2.cnum = c.cnum
+    WHERE c.city = 'London'
+);
+
+
