@@ -1,0 +1,137 @@
+### 1. Electricity Bill
+```java
+if(units<=100) bill=units*5;
+else if(units<=200) bill=100*5+(units-100)*7;
+else bill=100*5+100*7+(units-200)*10;
+if(bill>1500) bill+=bill*0.05;
+```
+
+### 2. Student Result
+```java
+total = sum(marks);
+avg = total/5.0;
+percent = (total/500.0)*100;
+if(percent>=90) grade="A"; else if(percent>=75) grade="B"; ...
+```
+
+### 3. ATM
+```java
+switch(choice){
+ case 1: show balance;
+ case 2: balance+=deposit;
+ case 3: if(withdraw<=balance) balance-=withdraw;
+}
+```
+
+### 4. Grocery Bill
+```java
+totals[i] = qty[i]*price[i];
+grandTotal = sum(totals);
+if(grandTotal>3000) grandTotal-=grandTotal*0.10;
+```
+
+### 5. Salary Slip
+```java
+hra=0.2*basic; da=0.1*basic; pf=0.08*basic;
+net=basic+hra+da-pf;
+```
+
+### 6. Bus Booking
+```java
+boolean[] seats=new boolean[10];
+if(!seats[n]) seats[n]=true; // book
+else seats[n]=false; // cancel
+```
+
+### 7. Mobile Recharge
+```java
+switch(amount){
+ case 199: plan="28 days"; break;
+ case 399: plan="56 days"; break;
+ case 599: plan="84 days"; break;
+}
+```
+
+### 8. Patient Record
+```java
+class Patient{ int id, age; String name,disease;
+boolean isSeniorCitizen(){ return age>=60; } }
+```
+
+### 9. Expense Tracker
+```java
+total=sum(expenses); avg=total/7;
+highest=...; lowest=...; highestDay=...
+```
+
+### 10. Restaurant Order
+```java
+switch(choice){ case1: total+=250; case2: total+=150; }
+gst=total*0.05; final=total+gst;
+```
+
+### 11. Calculator (Overloading)
+```java
+int calculate(int a,int b){return a+b;}
+double calculate(double a,double b){return a+b;}
+int calculate(int a,int b,int c){return a+b+c;}
+```
+
+### 12. Student Counter
+```java
+static int totalStudents=0;
+Student(){ totalStudents++; }
+```
+
+### 13. Bank Account
+```java
+BankAccount(){...} // default
+BankAccount(int acc,String name,double bal){...} // parameterized
+```
+
+### 14. Salary Conversion
+```java
+int salInt=(int)salary;
+float salFloat=(float)salary;
+```
+
+### 15. Marks Table
+```java
+int[][] marks=new int[3][3];
+totals[i]=marks[i][0]+marks[i][1]+marks[i][2];
+```
+
+### 16. Weekly Work Hours
+```java
+int[][] hours=new int[3][];
+hours[i]=new int[days]; // jagged array
+```
+
+### 17. Scope Demo
+```java
+int methodVar=10;
+for(int i=0;i<3;i++){ int loopVar=i*2; }
+{ int blockVar=50; }
+```
+
+### 18. Expressions
+```java
+res1=(a+b)*c;
+res2=(a>b && b>c);
+res3=a%b;
+```
+
+### 19. Employee ID
+```java
+static int counter=100;
+Employee(){ empId=++counter; }
+```
+
+### 20. Library System
+```java
+class Book{ int id; String name; }
+class Library{ void displayBooks(Book[] b){...} }
+```
+
+---
+
